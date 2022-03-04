@@ -17,7 +17,7 @@ describe('Registration and Login', () => {
         cy.get('[id="Password"]').type("Test.2022")
         cy.get('[id="ConfirmPassword"]').type("Test.2022")
         cy.get('[id="register-button"]').click()
-        cy.get('[class="result"]').should('contain', 'Your registration completed')
+        cy.get('[class="result"]').should('have.text', 'Your registration completed')
     });
 
     it('Registered user cannot register again', () => {
@@ -35,7 +35,7 @@ describe('Registration and Login', () => {
         cy.get('[id="ConfirmPassword"]').type("Test.2022")
         cy.get('[id="register-button"]').click()
         cy.get('[class="message-error validation-summary-errors"]')
-          .should('contain', 'The specified email already exists')
+          .should('include.text', 'The specified email already exists')
     });
 
     it('Register by filling only required fields', () => {
@@ -47,7 +47,7 @@ describe('Registration and Login', () => {
         cy.get('[id="Password"]').type("Test.2022")
         cy.get('[id="ConfirmPassword"]').type("Test.2022")
         cy.get('[id="register-button"]').click()
-        cy.get('[class="result"]').should('contain', 'Your registration completed')
+        cy.get('[class="result"]').should('have.text', 'Your registration completed')
     });
 
     it('Register by not filling any data', () => {
@@ -59,7 +59,7 @@ describe('Registration and Login', () => {
         cy.get('[id="LastName-error"]').should('contain', 'Last name is required.')
         cy.get('[id="Email-error"]').should('contain', 'Email is required.')
         cy.get('[id="Password-error"]').should('contain', 'Password is required.')
-        cy.get('[id="ConfirmPassword-error"]').should('contain', 'Password is required.')
+        cy.get('[id="ConfirmPassword-error"]').should('have.text', 'Password is required.')
     });
 
     it('Email validation', () => {
@@ -77,7 +77,7 @@ describe('Registration and Login', () => {
         emails.forEach((email) => {
             cy.get('[id="Email"]').type(email)
             cy.get('[id="register-button"]').click()
-            cy.get('[id="Email-error"]').should('contain','Wrong email')
+            cy.get('[id="Email-error"]').should('have.text','Wrong email')
             cy.get('[id="Email"]').clear()
         })
     });
@@ -88,7 +88,7 @@ describe('Registration and Login', () => {
         cy.get('[id="Password"]').type("Test2")
         cy.get('[id="ConfirmPassword"]').type("Test2")
         cy.get('[id="register-button"]').click()
-        cy.get('[id="Password-error"]').should('contain', 'must have at least 6 characters')
+        cy.get('[id="Password-error"]').should('include.text', 'must have at least 6 characters')
     });
 
     it('Passing different passwords', () => {
@@ -98,7 +98,7 @@ describe('Registration and Login', () => {
         cy.get('[id="ConfirmPassword"]').type("Test.2")
         cy.get('[id="register-button"]').click()
         cy.get('[id="ConfirmPassword-error"]')
-          .should('contain', 'The password and confirmation password do not match.')
+          .should('have.text', 'The password and confirmation password do not match.')
     });
 
     it('Not passing confirmation password', () => {
@@ -106,7 +106,7 @@ describe('Registration and Login', () => {
         cy.get('[class="ico-register"]').click()
         cy.get('[id="Password"]').type("Test.1")
         cy.get('[id="register-button"]').click()
-        cy.get('[id="ConfirmPassword-error"]').should('contain', 'Password is required.')
+        cy.get('[id="ConfirmPassword-error"]').should('have.text', 'Password is required.')
     });
 
     it('Log in with registered email', () => {
